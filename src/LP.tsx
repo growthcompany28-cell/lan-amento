@@ -23,7 +23,6 @@ const LOGOS = [
   { src: "https://api.builder.io/api/v1/image/assets/TEMP/e3c594ec7b819633930ebca6d799c1a25e4f6ca3?width=148", bg: "rgba(255,0,0,.10)" },
   { src: "https://api.builder.io/api/v1/image/assets/TEMP/b8058ea2a3613eeb5fbc8153c6bb59273d677935?width=148", bg: "rgba(255,0,0,.10)" },
   { src: "https://api.builder.io/api/v1/image/assets/TEMP/a079a9d3926bde51d394d0b90bb80674cc5e9fbc?width=148", bg: "rgba(255,0,0,.10)" },
-  { src: "https://api.builder.io/api/v1/image/assets/TEMP/a0aec7389b59c267fe9e6cb147a75e605ac97963?width=148", bg: "rgba(255,0,0,.10)" },
 ];
 
 const CARDS = [
@@ -261,9 +260,10 @@ export default function LP() {
           <div className="marquee-track">
             {[...LOGOS, ...LOGOS].map((l, i) => (
               <div key={i} style={{
-                width: 66, height: 66, flexShrink: 0,
-                background: l.bg, borderRadius: 4, margin: "0 5px",
+                width: 70, height: 70, flexShrink: 0,
+                background: l.bg, borderRadius: 6, margin: "0 6px",
                 display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden",
+                padding: 6,
               }}>
                 <img src={l.src} alt="" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
               </div>
