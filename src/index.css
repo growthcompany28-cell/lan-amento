@@ -271,6 +271,30 @@ body {
   box-shadow: 0 4px 20px rgba(0,0,0,.6);
 }
 
+/* ── BADGE FLOAT ANIMATION ── */
+.badge-float {
+  animation-duration: 4s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+.badge-float-1 { animation-name: floatA; }
+.badge-float-2 { animation-name: floatB; animation-delay: .8s; }
+.badge-float-3 { animation-name: floatC; animation-delay: 1.6s; }
+
+@keyframes floatA {
+  0%, 100% { transform: translateY(0)   rotate(4deg);  }
+  50%      { transform: translateY(-8px) rotate(2deg);  }
+}
+@keyframes floatB {
+  0%, 100% { transform: translateY(0)   rotate(-5deg); }
+  50%      { transform: translateY(-10px) rotate(-3deg); }
+}
+@keyframes floatC {
+  0%, 100% { transform: translateY(0)   rotate(2deg);  }
+  50%      { transform: translateY(-7px) rotate(0deg);  }
+}
+
 /* ── EYEBROW PILL ── */
 .pill {
   display: inline-flex;
