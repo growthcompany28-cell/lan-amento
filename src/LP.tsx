@@ -259,13 +259,8 @@ export default function LP() {
         <div style={{ borderTop: ".8px solid #161616", borderBottom: ".8px solid #161616", padding: "14px 0", overflow: "hidden" }}>
           <div className="marquee-track">
             {[...LOGOS, ...LOGOS].map((l, i) => (
-              <div key={i} style={{
-                width: 70, height: 70, flexShrink: 0,
-                background: l.bg, borderRadius: 6, margin: "0 6px",
-                display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden",
-                padding: 6,
-              }}>
-                <img src={l.src} alt="" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+              <div key={i} className="logo-box" style={{ background: l.bg }}>
+                <img src={l.src} alt="" className="logo-img" />
               </div>
             ))}
           </div>
