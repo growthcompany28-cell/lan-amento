@@ -3,7 +3,9 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
+  base: "/lancamento/",
   build: {
-    outDir: "dist",
+    outDir: "../lancamento",
+    emptyOutDir: true,
   },
 });
