@@ -75,13 +75,10 @@ function Countdown() {
   const { days, hours, minutes, seconds } = useCountdown(TARGET_DATE);
   return (
     <div>
-      <p style={{ color: "#555", fontSize: 10, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", marginBottom: 4 }}>
+      <p style={{ color: "#555", fontSize: 10, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", marginBottom: 8 }}>
         A live começa em
       </p>
-      <p style={{ color: "#FE7B02", fontSize: 11, fontWeight: 700, letterSpacing: "1px", marginBottom: 10 }}>
-        07/07 às 14h
-      </p>
-      <div style={{ display: "flex", alignItems: "flex-start", gap: 6 }}>
+      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", gap: 4 }}>
         <CdBlock v={pad(days)}    label="dias" />
         <span className="cd-sep">:</span>
         <CdBlock v={pad(hours)}   label="horas" />
