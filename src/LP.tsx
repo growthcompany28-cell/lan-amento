@@ -3,23 +3,24 @@ import { useState, useEffect, useRef } from "react";
 /* ─── CONFIG — edite aqui ─────────────────────────────── */
 const TARGET_DATE = new Date("2026-07-07T14:00:00-03:00");
 const WA_GROUP    = "https://chat.whatsapp.com/LINK_DO_GRUPO_AQUI";
-const HERO_DESKTOP = "/publichero-desktop.png";
-const HERO_TABLET  = "/publichero-tablet.png";
-const HERO_MOBILE  = "/publichero-mobile.png";
+const B = import.meta.env.BASE_URL;
+const HERO_DESKTOP = `${B}publichero-desktop.png`;
+const HERO_TABLET  = `${B}publichero-tablet.png`;
+const HERO_MOBILE  = `${B}publichero-mobile.png`;
 /* ────────────────────────────────────────────────────── */
 
 const LOGOS = [
-  "/logs/img-06.png",
-  "/logs/img-07.png",
-  "/logs/img-08.png",
-  "/logs/img-09.png",
-  "/logs/img-10.png",
-  "/logs/img-11.png",
-  "/logs/img-12.png",
-  "/logs/img-14.png",
-  "/logs/img-15.png",
-  "/logs/img-16.png",
-  "/logs/719099528_17929054473302517_7699826523607166691_n 1.png",
+  `${B}logs/img-06.png`,
+  `${B}logs/img-07.png`,
+  `${B}logs/img-08.png`,
+  `${B}logs/img-09.png`,
+  `${B}logs/img-10.png`,
+  `${B}logs/img-11.png`,
+  `${B}logs/img-12.png`,
+  `${B}logs/img-14.png`,
+  `${B}logs/img-15.png`,
+  `${B}logs/img-16.png`,
+  `${B}logs/719099528_17929054473302517_7699826523607166691_n 1.png`,
 ];
 
 const CARDS = [
