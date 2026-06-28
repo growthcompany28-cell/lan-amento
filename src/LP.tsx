@@ -157,39 +157,36 @@ export default function LP() {
 
         {/* — MOBILE (< 768px) — */}
         <div className="hero-mobile">
-          <div style={{ position: "relative", paddingBottom: "140%" }}>
+          {/* image — tall so the person appears big */}
+          <div style={{ position: "relative", paddingBottom: "130%" }}>
             <img src={HERO_MOBILE} alt="" style={{
               position: "absolute", inset: 0,
               width: "100%", height: "100%",
-              objectFit: "cover", objectPosition: "center 15%",
+              objectFit: "cover", objectPosition: "center top",
             }} />
-            {/* gradient — starts at ~55% to keep person visible */}
             <div style={{
-              position: "absolute", bottom: 0, left: 0, right: 0, height: "55%",
-              background: "linear-gradient(to bottom, transparent 0%, rgba(10,10,10,.6) 35%, rgba(10,10,10,.95) 65%, #0A0A0A 85%)",
+              position: "absolute", bottom: 0, left: 0, right: 0, height: "35%",
+              background: "linear-gradient(to bottom, transparent, #0A0A0A)",
             }} />
 
-            {/* badges */}
-            <div className="badge badge-float badge-float-1" style={{ position: "absolute", top: "42%", right: "3%", minWidth: 68, padding: "6px 10px" }}>
-              <p style={{ color: "#FE7B02", fontSize: 13, fontWeight: 700 }}>+200</p>
-              <p style={{ color: "#777", fontSize: 7, fontWeight: 600, letterSpacing: ".8px", textTransform: "uppercase" }}>Clientes/dia</p>
-            </div>
-            <div className="badge badge-float badge-float-2" style={{ position: "absolute", top: "35%", left: "3%", minWidth: 68, padding: "6px 10px" }}>
-              <p style={{ color: "#FE7B02", fontSize: 13, fontWeight: 700 }}>5×</p>
-              <p style={{ color: "#777", fontSize: 7, fontWeight: 600, letterSpacing: ".8px", textTransform: "uppercase" }}>Crescimento</p>
-            </div>
-            <div className="badge badge-float badge-float-3" style={{ position: "absolute", top: "12%", right: "3%", minWidth: 68, padding: "6px 10px" }}>
+            {/* badges — laterais, na altura do tronco */}
+            <div className="badge badge-float badge-float-3" style={{ position: "absolute", top: "10%", right: "3%", minWidth: 68, padding: "6px 10px" }}>
               <p style={{ color: "#FE7B02", fontSize: 13, fontWeight: 700 }}>+R$500k</p>
               <p style={{ color: "#777", fontSize: 7, fontWeight: 600, letterSpacing: ".8px", textTransform: "uppercase" }}>Faturamento/mês</p>
             </div>
-
-            {/* text overlaid on gradient area */}
-            <div style={{
-              position: "absolute", bottom: 0, left: 0, right: 0,
-              padding: "0 20px 24px", zIndex: 10, textAlign: "center",
-            }}>
-              <HeroContent onCTA={scrollToQuiz} />
+            <div className="badge badge-float badge-float-2" style={{ position: "absolute", top: "45%", left: "3%", minWidth: 68, padding: "6px 10px" }}>
+              <p style={{ color: "#FE7B02", fontSize: 13, fontWeight: 700 }}>5×</p>
+              <p style={{ color: "#777", fontSize: 7, fontWeight: 600, letterSpacing: ".8px", textTransform: "uppercase" }}>Crescimento</p>
             </div>
+            <div className="badge badge-float badge-float-1" style={{ position: "absolute", top: "55%", right: "3%", minWidth: 68, padding: "6px 10px" }}>
+              <p style={{ color: "#FE7B02", fontSize: 13, fontWeight: 700 }}>+200</p>
+              <p style={{ color: "#777", fontSize: 7, fontWeight: 600, letterSpacing: ".8px", textTransform: "uppercase" }}>Clientes/dia</p>
+            </div>
+          </div>
+
+          {/* text BELOW image */}
+          <div style={{ padding: "0 20px 40px", marginTop: -10, position: "relative", zIndex: 10, textAlign: "center" }}>
+            <HeroContent onCTA={scrollToQuiz} />
           </div>
         </div>
 
