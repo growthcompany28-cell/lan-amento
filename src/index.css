@@ -78,7 +78,7 @@ body {
   box-shadow: 0 8px 32px rgba(0,0,0,.4);
 }
 
-/* ── QUIZ BOX (animated gradient border) ── */
+/* ── QUIZ BOX (running border light) ── */
 .quiz-box {
   position: relative;
   background: #0f0f0f;
@@ -92,15 +92,25 @@ body {
   position: absolute;
   inset: -1.5px;
   border-radius: 19px;
-  background: linear-gradient(135deg, #FF4D00, #ff8c00, #FF4D00, #cc3d00);
-  background-size: 300% 300%;
-  animation: borderGlow 4s ease infinite;
+  background: conic-gradient(from var(--border-angle, 0deg), transparent 60%, #FF4D00 78%, #ff8c00 82%, #FF4D00 86%, transparent 95%);
+  animation: borderSpin 4s linear infinite;
   z-index: -1;
-  opacity: .6;
 }
-@keyframes borderGlow {
-  0%, 100% { background-position: 0% 50%; opacity: .4; }
-  50%      { background-position: 100% 50%; opacity: .7; }
+.quiz-box::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: 17px;
+  background: #0f0f0f;
+  z-index: -1;
+}
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes borderSpin {
+  to { --border-angle: 360deg; }
 }
 
 /* ── VAGA BADGE (pulse) ── */

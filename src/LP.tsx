@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 /* ─── CONFIG — edite aqui ─────────────────────────────── */
-const TARGET_DATE = new Date("2025-07-07T14:00:00-03:00");
+const TARGET_DATE = new Date("2026-07-07T14:00:00-03:00");
 const WA_GROUP    = "https://chat.whatsapp.com/LINK_DO_GRUPO_AQUI";
 const HERO_DESKTOP = "/publichero-desktop.png";
 const HERO_TABLET  = "/publichero-tablet.png";
