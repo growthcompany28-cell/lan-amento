@@ -9,20 +9,17 @@ const HERO_MOBILE  = "/publichero-mobile.png";
 /* ────────────────────────────────────────────────────── */
 
 const LOGOS = [
-  { src: "https://api.builder.io/api/v1/image/assets/TEMP/ab2d1716f2f007090ea392015c98cbc5f27c7ffc?width=200&height=200&fit=cover", bg: "#FFA725" },
-  { src: "https://api.builder.io/api/v1/image/assets/TEMP/324bda9d18b94b97979db2fd74b1fa2c84fa1822?width=200&height=200&fit=cover", bg: "rgba(255,0,0,.10)" },
-  { src: "https://api.builder.io/api/v1/image/assets/TEMP/d62faaa7b81c52948f1e4c74e14d0d8c45216069?width=200&height=200&fit=cover", bg: "#242424" },
-  { src: "https://api.builder.io/api/v1/image/assets/TEMP/2e3d4d2d95593c20ffcaf929eb030c6c1d80a47d?width=200&height=200&fit=cover", bg: "rgba(255,0,0,.10)" },
-  { src: "https://api.builder.io/api/v1/image/assets/TEMP/e90adb0a84671dcf7365a1b4e6358623d3c0773f?width=200&height=200&fit=cover", bg: "rgba(255,0,0,.10)" },
-  { src: "https://api.builder.io/api/v1/image/assets/TEMP/77be5e6436eaa5e3cdaf140d40dd6cca4b25747f?width=200&height=200&fit=cover", bg: "rgba(255,0,0,.10)" },
-  { src: "https://api.builder.io/api/v1/image/assets/TEMP/f30339ee770c61544057f192b1b01f93f86651c2?width=200&height=200&fit=cover", bg: "#F87025" },
-  { src: "https://api.builder.io/api/v1/image/assets/TEMP/ca068a7a0ccc28b9fe9bb7410a0926017fe01b5c?width=200&height=200&fit=cover", bg: "#000" },
-  { src: "https://api.builder.io/api/v1/image/assets/TEMP/7e819e2e959e35d4f24b2a9ecebf06f5dff41c94?width=200&height=200&fit=cover", bg: "#000" },
-  { src: "https://api.builder.io/api/v1/image/assets/TEMP/155fbfc165bfa2687f5dff2b6ace597f1539158a?width=200&height=200&fit=cover", bg: "#000" },
-  { src: "https://api.builder.io/api/v1/image/assets/TEMP/58f8e5f90635486d580fb6e8130b216ca9063b89?width=200&height=200&fit=cover", bg: "#000" },
-  { src: "https://api.builder.io/api/v1/image/assets/TEMP/e3c594ec7b819633930ebca6d799c1a25e4f6ca3?width=200&height=200&fit=cover", bg: "rgba(255,0,0,.10)" },
-  { src: "https://api.builder.io/api/v1/image/assets/TEMP/b8058ea2a3613eeb5fbc8153c6bb59273d677935?width=200&height=200&fit=cover", bg: "rgba(255,0,0,.10)" },
-  { src: "https://api.builder.io/api/v1/image/assets/TEMP/a079a9d3926bde51d394d0b90bb80674cc5e9fbc?width=200&height=200&fit=cover", bg: "rgba(255,0,0,.10)" },
+  "/logs/img-06.png",
+  "/logs/img-07.png",
+  "/logs/img-08.png",
+  "/logs/img-09.png",
+  "/logs/img-10.png",
+  "/logs/img-11.png",
+  "/logs/img-12.png",
+  "/logs/img-14.png",
+  "/logs/img-15.png",
+  "/logs/img-16.png",
+  "/logs/719099528_17929054473302517_7699826523607166691_n 1.png",
 ];
 
 const CARDS = [
@@ -258,9 +255,9 @@ export default function LP() {
         {/* ── LOGO STRIP ── */}
         <div style={{ borderTop: ".8px solid #161616", borderBottom: ".8px solid #161616", padding: "14px 0", overflow: "hidden" }}>
           <div className="marquee-track">
-            {[...LOGOS, ...LOGOS].map((l, i) => (
-              <div key={i} className="logo-box" style={{ background: l.bg }}>
-                <img src={l.src} alt="" className="logo-img" />
+            {[...LOGOS, ...LOGOS].map((src, i) => (
+              <div key={i} className="logo-box">
+                <img src={src} alt="" className="logo-img" />
               </div>
             ))}
           </div>
