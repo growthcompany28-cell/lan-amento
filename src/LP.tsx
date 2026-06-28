@@ -167,16 +167,16 @@ export default function LP() {
               background: "linear-gradient(to bottom, transparent, #0A0A0A)",
             }} />
 
-            {/* badges — corners, away from face */}
-            <div className="badge badge-float badge-float-1" style={{ position: "absolute", top: "4%", right: "4%", minWidth: 68, padding: "6px 10px" }}>
+            {/* badges — sides, below head level */}
+            <div className="badge badge-float badge-float-1" style={{ position: "absolute", top: "42%", right: "3%", minWidth: 68, padding: "6px 10px" }}>
               <p style={{ color: "#FE7B02", fontSize: 13, fontWeight: 700 }}>+200</p>
               <p style={{ color: "#777", fontSize: 7, fontWeight: 600, letterSpacing: ".8px", textTransform: "uppercase" }}>Clientes/dia</p>
             </div>
-            <div className="badge badge-float badge-float-2" style={{ position: "absolute", top: "4%", left: "4%", minWidth: 68, padding: "6px 10px" }}>
+            <div className="badge badge-float badge-float-2" style={{ position: "absolute", top: "35%", left: "3%", minWidth: 68, padding: "6px 10px" }}>
               <p style={{ color: "#FE7B02", fontSize: 13, fontWeight: 700 }}>5×</p>
               <p style={{ color: "#777", fontSize: 7, fontWeight: 600, letterSpacing: ".8px", textTransform: "uppercase" }}>Crescimento</p>
             </div>
-            <div className="badge badge-float badge-float-3" style={{ position: "absolute", bottom: "38%", right: "4%", minWidth: 68, padding: "6px 10px" }}>
+            <div className="badge badge-float badge-float-3" style={{ position: "absolute", top: "12%", right: "3%", minWidth: 68, padding: "6px 10px" }}>
               <p style={{ color: "#FE7B02", fontSize: 13, fontWeight: 700 }}>+R$500k</p>
               <p style={{ color: "#777", fontSize: 7, fontWeight: 600, letterSpacing: ".8px", textTransform: "uppercase" }}>Faturamento/mês</p>
             </div>
