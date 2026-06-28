@@ -165,8 +165,8 @@ export default function LP() {
               objectFit: "cover", objectPosition: "center top",
             }} />
             <div style={{
-              position: "absolute", bottom: 0, left: 0, right: 0, height: "35%",
-              background: "linear-gradient(to bottom, transparent, #0A0A0A)",
+              position: "absolute", bottom: 0, left: 0, right: 0, height: "50%",
+              background: "linear-gradient(to bottom, transparent 0%, rgba(10,10,10,.7) 50%, #0A0A0A 100%)",
             }} />
 
             {/* badges — laterais, na altura do tronco */}
@@ -184,8 +184,8 @@ export default function LP() {
             </div>
           </div>
 
-          {/* text BELOW image */}
-          <div style={{ padding: "0 20px 40px", marginTop: -10, position: "relative", zIndex: 10, textAlign: "center" }}>
+          {/* text pulled up into gradient */}
+          <div style={{ padding: "0 20px 40px", marginTop: -120, position: "relative", zIndex: 10, textAlign: "center" }}>
             <HeroContent onCTA={scrollToQuiz} />
           </div>
         </div>
