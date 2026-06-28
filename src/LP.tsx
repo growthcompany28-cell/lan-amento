@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 /* ─── CONFIG — edite aqui ─────────────────────────────── */
-const TARGET_DATE = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+const TARGET_DATE = new Date("2025-07-07T14:00:00-03:00");
 const WA_GROUP    = "https://chat.whatsapp.com/LINK_DO_GRUPO_AQUI";
 const HERO_DESKTOP = "/publichero-desktop.png";
 const HERO_TABLET  = "/publichero-tablet.png";
@@ -75,8 +75,11 @@ function Countdown() {
   const { days, hours, minutes, seconds } = useCountdown(TARGET_DATE);
   return (
     <div>
-      <p style={{ color: "#555", fontSize: 10, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", marginBottom: 10 }}>
+      <p style={{ color: "#555", fontSize: 10, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", marginBottom: 4 }}>
         A live começa em
+      </p>
+      <p style={{ color: "#FE7B02", fontSize: 11, fontWeight: 700, letterSpacing: "1px", marginBottom: 10 }}>
+        07/07 às 14h
       </p>
       <div style={{ display: "flex", alignItems: "flex-start", gap: 6 }}>
         <CdBlock v={pad(days)}    label="dias" />
@@ -154,20 +157,19 @@ export default function LP() {
 
         {/* — MOBILE (< 768px) — */}
         <div className="hero-mobile">
-          {/* image area — person visible */}
-          <div style={{ position: "relative", paddingBottom: "110%" }}>
+          <div style={{ position: "relative", paddingBottom: "140%" }}>
             <img src={HERO_MOBILE} alt="" style={{
               position: "absolute", inset: 0,
               width: "100%", height: "100%",
-              objectFit: "cover", objectPosition: "center top",
+              objectFit: "cover", objectPosition: "center 15%",
             }} />
-            {/* soft fade at bottom only */}
+            {/* gradient — starts at ~55% to keep person visible */}
             <div style={{
-              position: "absolute", bottom: 0, left: 0, right: 0, height: "40%",
-              background: "linear-gradient(to bottom, transparent, #0A0A0A)",
+              position: "absolute", bottom: 0, left: 0, right: 0, height: "55%",
+              background: "linear-gradient(to bottom, transparent 0%, rgba(10,10,10,.6) 35%, rgba(10,10,10,.95) 65%, #0A0A0A 85%)",
             }} />
 
-            {/* badges — sides, below head level */}
+            {/* badges */}
             <div className="badge badge-float badge-float-1" style={{ position: "absolute", top: "42%", right: "3%", minWidth: 68, padding: "6px 10px" }}>
               <p style={{ color: "#FE7B02", fontSize: 13, fontWeight: 700 }}>+200</p>
               <p style={{ color: "#777", fontSize: 7, fontWeight: 600, letterSpacing: ".8px", textTransform: "uppercase" }}>Clientes/dia</p>
@@ -180,11 +182,14 @@ export default function LP() {
               <p style={{ color: "#FE7B02", fontSize: 13, fontWeight: 700 }}>+R$500k</p>
               <p style={{ color: "#777", fontSize: 7, fontWeight: 600, letterSpacing: ".8px", textTransform: "uppercase" }}>Faturamento/mês</p>
             </div>
-          </div>
 
-          {/* text BELOW image — clean separation */}
-          <div style={{ padding: "0 20px 48px", marginTop: -16, position: "relative", zIndex: 10, textAlign: "center" }}>
-            <HeroContent onCTA={scrollToQuiz} />
+            {/* text overlaid on gradient area */}
+            <div style={{
+              position: "absolute", bottom: 0, left: 0, right: 0,
+              padding: "0 20px 24px", zIndex: 10, textAlign: "center",
+            }}>
+              <HeroContent onCTA={scrollToQuiz} />
+            </div>
           </div>
         </div>
 
