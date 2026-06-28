@@ -154,76 +154,71 @@ export default function LP() {
 
         {/* — MOBILE (< 768px) — */}
         <div className="hero-mobile">
-          <div style={{ position: "relative", minHeight: "100svh" }}>
+          {/* image area — person visible */}
+          <div style={{ position: "relative", paddingBottom: "110%" }}>
             <img src={HERO_MOBILE} alt="" style={{
               position: "absolute", inset: 0,
               width: "100%", height: "100%",
-              objectFit: "cover", objectPosition: "center 20%",
+              objectFit: "cover", objectPosition: "center top",
             }} />
-            {/* gradient bottom */}
+            {/* soft fade at bottom only */}
             <div style={{
-              position: "absolute", bottom: 0, left: 0, right: 0, height: "65%",
-              background: "linear-gradient(to bottom, transparent 0%, rgba(10,10,10,.4) 30%, rgba(10,10,10,.85) 55%, #0A0A0A 90%)",
+              position: "absolute", bottom: 0, left: 0, right: 0, height: "40%",
+              background: "linear-gradient(to bottom, transparent, #0A0A0A)",
             }} />
 
-            {/* badges */}
-            <div className="badge badge-float badge-float-1" style={{ position: "absolute", top: "8%", right: "5%", transform: "rotate(4deg)", minWidth: 68, padding: "6px 10px" }}>
+            {/* badges — corners, away from face */}
+            <div className="badge badge-float badge-float-1" style={{ position: "absolute", top: "4%", right: "4%", minWidth: 68, padding: "6px 10px" }}>
               <p style={{ color: "#FE7B02", fontSize: 13, fontWeight: 700 }}>+200</p>
               <p style={{ color: "#777", fontSize: 7, fontWeight: 600, letterSpacing: ".8px", textTransform: "uppercase" }}>Clientes/dia</p>
             </div>
-            <div className="badge badge-float badge-float-2" style={{ position: "absolute", top: "18%", left: "4%", transform: "rotate(-5deg)", minWidth: 68, padding: "6px 10px" }}>
+            <div className="badge badge-float badge-float-2" style={{ position: "absolute", top: "4%", left: "4%", minWidth: 68, padding: "6px 10px" }}>
               <p style={{ color: "#FE7B02", fontSize: 13, fontWeight: 700 }}>5×</p>
               <p style={{ color: "#777", fontSize: 7, fontWeight: 600, letterSpacing: ".8px", textTransform: "uppercase" }}>Crescimento</p>
             </div>
-            <div className="badge badge-float badge-float-3" style={{ position: "absolute", top: "32%", right: "3%", transform: "rotate(2deg)", minWidth: 68, padding: "6px 10px" }}>
+            <div className="badge badge-float badge-float-3" style={{ position: "absolute", bottom: "38%", right: "4%", minWidth: 68, padding: "6px 10px" }}>
               <p style={{ color: "#FE7B02", fontSize: 13, fontWeight: 700 }}>+R$500k</p>
               <p style={{ color: "#777", fontSize: 7, fontWeight: 600, letterSpacing: ".8px", textTransform: "uppercase" }}>Faturamento/mês</p>
             </div>
+          </div>
 
-            {/* text overlay at bottom */}
-            <div style={{
-              position: "absolute", bottom: 0, left: 0, right: 0,
-              padding: "0 20px 32px", zIndex: 10, textAlign: "center",
-            }}>
-              <HeroContent onCTA={scrollToQuiz} />
-            </div>
+          {/* text BELOW image — clean separation */}
+          <div style={{ padding: "0 20px 48px", marginTop: -16, position: "relative", zIndex: 10, textAlign: "center" }}>
+            <HeroContent onCTA={scrollToQuiz} />
           </div>
         </div>
 
         {/* — TABLET (768px – 1023px) — */}
         <div className="hero-tablet">
-          <div style={{ position: "relative", minHeight: "100svh" }}>
+          <div style={{ position: "relative", paddingBottom: "90%" }}>
             <img src={HERO_TABLET} alt="" style={{
               position: "absolute", inset: 0,
               width: "100%", height: "100%",
-              objectFit: "cover", objectPosition: "center 20%",
+              objectFit: "cover", objectPosition: "center top",
             }} />
             <div style={{
-              position: "absolute", bottom: 0, left: 0, right: 0, height: "60%",
-              background: "linear-gradient(to bottom, transparent 0%, rgba(10,10,10,.4) 30%, rgba(10,10,10,.85) 55%, #0A0A0A 90%)",
+              position: "absolute", bottom: 0, left: 0, right: 0, height: "40%",
+              background: "linear-gradient(to bottom, transparent, #0A0A0A)",
             }} />
 
-            {/* badges */}
-            <div className="badge badge-float badge-float-1" style={{ position: "absolute", top: "10%", right: "8%", transform: "rotate(4deg)", minWidth: 80, padding: "8px 12px" }}>
+            {/* badges — corners */}
+            <div className="badge badge-float badge-float-1" style={{ position: "absolute", top: "5%", right: "6%", minWidth: 80, padding: "8px 12px" }}>
               <p style={{ color: "#FE7B02", fontSize: 16, fontWeight: 700 }}>+200</p>
               <p style={{ color: "#777", fontSize: 9, fontWeight: 600, letterSpacing: ".8px", textTransform: "uppercase" }}>Clientes/dia</p>
             </div>
-            <div className="badge badge-float badge-float-2" style={{ position: "absolute", top: "22%", left: "6%", transform: "rotate(-5deg)", minWidth: 80, padding: "8px 12px" }}>
+            <div className="badge badge-float badge-float-2" style={{ position: "absolute", top: "5%", left: "6%", minWidth: 80, padding: "8px 12px" }}>
               <p style={{ color: "#FE7B02", fontSize: 16, fontWeight: 700 }}>5×</p>
               <p style={{ color: "#777", fontSize: 9, fontWeight: 600, letterSpacing: ".8px", textTransform: "uppercase" }}>Crescimento</p>
             </div>
-            <div className="badge badge-float badge-float-3" style={{ position: "absolute", top: "35%", right: "5%", transform: "rotate(2deg)", minWidth: 80, padding: "8px 12px" }}>
+            <div className="badge badge-float badge-float-3" style={{ position: "absolute", bottom: "38%", right: "5%", minWidth: 80, padding: "8px 12px" }}>
               <p style={{ color: "#FE7B02", fontSize: 16, fontWeight: 700 }}>+R$500k</p>
               <p style={{ color: "#777", fontSize: 9, fontWeight: 600, letterSpacing: ".8px", textTransform: "uppercase" }}>Faturamento/mês</p>
             </div>
+          </div>
 
-            {/* text overlay */}
-            <div style={{
-              position: "absolute", bottom: 0, left: 0, right: 0,
-              padding: "0 40px 40px", zIndex: 10, textAlign: "center",
-            }}>
-              <HeroContent onCTA={scrollToQuiz} />
-            </div>
+          {/* text below image */}
+          <div style={{ padding: "0 40px 48px", marginTop: -24, position: "relative", zIndex: 10, textAlign: "center" }}>
+            <HeroContent onCTA={scrollToQuiz} />
           </div>
         </div>
 
