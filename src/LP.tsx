@@ -138,11 +138,13 @@ export default function LP() {
   const [selected, setSelected]   = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const quizRef = useRef<HTMLDivElement>(null);
+  const sentRef = useRef(false);
 
   const scrollToQuiz = () => quizRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
 
   const handleSend = () => {
-    if (!selected) return;
+    if (!selected || sentRef.current) return;
+    sentRef.current = true;
     setSubmitted(true);
     window.fbq?.("track", "Lead");
 
@@ -407,7 +409,7 @@ export default function LP() {
                 <button
                   onClick={handleSend}
                   className={`btn-cta btn-cta-quiz${selected ? " btn-cta-ready" : ""}`}
-                  disabled={!selected}
+                  disabled={!selected || submitted}
                   style={{ width: "100%", height: 54, fontSize: 14 }}
                 >
                   GARANTIR MINHA VAGA NO GRUPO →
