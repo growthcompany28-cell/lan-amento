@@ -140,6 +140,7 @@ export default function LP() {
   const handleSend = () => {
     if (!selected) return;
     setSubmitted(true);
+    window.fbq?.("track", "Lead");
     setTimeout(() => window.open(WA_GROUP, "_blank"), 700);
   };
 
