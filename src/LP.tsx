@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 /* ─── CONFIG — edite aqui ─────────────────────────────── */
-const TARGET_DATE = new Date("2026-07-07T14:00:00-03:00");
+const TARGET_DATE = new Date("2026-07-07T10:00:00-03:00");
 const WA_GROUP    = "https://chat.whatsapp.com/LINK_DO_GRUPO_AQUI";
 const B = import.meta.env.BASE_URL;
 const HERO_DESKTOP = `${B}publichero-desktop.png`;
@@ -72,6 +72,9 @@ function Countdown() {
   const { days, hours, minutes, seconds } = useCountdown(TARGET_DATE);
   return (
     <div>
+      <p style={{ color: "#FE7B02", fontSize: 12, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", marginBottom: 6 }}>
+        Live dia 07/07 às 10h
+      </p>
       <p style={{ color: "#555", fontSize: 10, fontWeight: 600, letterSpacing: "2px", textTransform: "uppercase", marginBottom: 8 }}>
         A live começa em
       </p>
@@ -112,7 +115,7 @@ function HeroContent({ onCTA }: { onCTA: () => void }) {
       </h1>
 
       <p className="r3" style={{ color: "#888", fontSize: 14, lineHeight: "24px", marginBottom: 24 }}>
-        Vou revelar em uma <strong style={{ color: "#F5F5F5" }}>live exclusiva</strong> a estratégia
+        No dia <strong style={{ color: "#F5F5F5" }}>07/07</strong>, vou revelar em uma <strong style={{ color: "#F5F5F5" }}>live exclusiva</strong> a estratégia
         que multiplicou o faturamento da <strong style={{ color: "#F5F5F5" }}>Monalisa Pizzaria</strong> em menos de 12 meses.
       </p>
 
