@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from "react";
 
 /* ─── CONFIG — edite aqui ─────────────────────────────── */
 const TARGET_DATE = new Date("2026-07-07T10:00:00-03:00");
-const WA_GROUP    = "https://chat.whatsapp.com/LINK_DO_GRUPO_AQUI";
+const WA_GROUP    = "https://chat.whatsapp.com/E665wQvrLi1Ket7TLe0W86?s=cl&p=i&mlu=3";
+const SHEET_WEBHOOK_URL = "COLE_AQUI_A_URL_DO_APPS_SCRIPT";
 const B = import.meta.env.BASE_URL;
 const HERO_DESKTOP = `${B}publichero-desktop.png`;
 const HERO_TABLET  = `${B}publichero-tablet.png`;
@@ -144,6 +145,19 @@ export default function LP() {
     if (!selected) return;
     setSubmitted(true);
     window.fbq?.("track", "Lead");
+
+    const option = OPTIONS.find((o) => o.id === selected);
+    fetch(SHEET_WEBHOOK_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify({
+        selecionado: option?.label ?? selected,
+        data: new Date().toISOString(),
+        pagina: window.location.href,
+      }),
+    }).catch(() => {});
+
     setTimeout(() => window.open(WA_GROUP, "_blank"), 700);
   };
 
