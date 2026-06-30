@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
 
 /* ─── CONFIG — edite aqui ─────────────────────────────── */
 const TARGET_DATE = new Date("2026-07-07T10:00:00-03:00");
@@ -38,6 +38,13 @@ const OPTIONS = [
   { id: "ifood",         icon: "🔴", label: "iFood" },
   { id: "cardapio",      icon: "📋", label: "Uso cardápio digital" },
   { id: "todas",         icon: "✅", label: "Todas as opções acima" },
+];
+
+const FATURAMENTO_OPTIONS = [
+  { id: "10_30",    label: "10 a 30k mensais" },
+  { id: "30_50",    label: "30 a 50k mensais" },
+  { id: "50_100",   label: "50 a 100k mensais" },
+  { id: "100_mais", label: "+de 100k mensais" },
 ];
 
 /* ── helpers ── */
@@ -92,6 +99,72 @@ function Countdown() {
   );
 }
 
+function Field({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div style={{ marginBottom: 14, textAlign: "left" }}>
+      <label style={{ display: "block", color: "#777", fontSize: 11, fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase", marginBottom: 6 }}>
+        {label}
+      </label>
+      {children}
+    </div>
+  );
+}
+
+function Dropdown({
+  value, placeholder, options, onChange,
+}: {
+  value: string | null;
+  placeholder: string;
+  options: { id: string; label: string; icon?: string }[];
+  onChange: (id: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function onClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, []);
+
+  const sel = options.find((o) => o.id === value);
+
+  return (
+    <div ref={ref} className="select-wrap">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className={`select-trigger${open ? " open" : ""}${!sel ? " placeholder" : ""}`}
+      >
+        <span style={{ display: "flex", alignItems: "center", gap: 8, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+          {sel?.icon && <span>{sel.icon}</span>}
+          {sel ? sel.label : placeholder}
+        </span>
+        <span className="select-chevron">▾</span>
+      </button>
+
+      {open && (
+        <div className="select-panel">
+          {options.map((o) => (
+            <button
+              type="button"
+              key={o.id}
+              className={`select-option${value === o.id ? " sel" : ""}`}
+              onClick={() => { onChange(o.id); setOpen(false); }}
+            >
+              {o.icon && <span>{o.icon}</span>}
+              <span>{o.label}</span>
+              {value === o.id && <span style={{ marginLeft: "auto", color: "#FF4D00" }}>✓</span>}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function HeroContent({ onCTA }: { onCTA: () => void }) {
   return (
     <div>
@@ -135,26 +208,37 @@ function HeroContent({ onCTA }: { onCTA: () => void }) {
    MAIN
 ══════════════════════════════════════ */
 export default function LP() {
-  const [selected, setSelected]   = useState<string | null>(null);
-  const [submitted, setSubmitted] = useState(false);
+  const [nome, setNome]             = useState("");
+  const [telefone, setTelefone]     = useState("");
+  const [empresa, setEmpresa]       = useState("");
+  const [faturamento, setFaturamento] = useState<string | null>(null);
+  const [metodo, setMetodo]         = useState<string | null>(null);
+  const [submitted, setSubmitted]   = useState(false);
   const quizRef = useRef<HTMLDivElement>(null);
   const sentRef = useRef(false);
 
   const scrollToQuiz = () => quizRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
 
+  const formValid = nome.trim() !== "" && telefone.trim() !== "" && empresa.trim() !== "" && !!faturamento && !!metodo;
+
   const handleSend = () => {
-    if (!selected || sentRef.current) return;
+    if (!formValid || sentRef.current) return;
     sentRef.current = true;
     setSubmitted(true);
     window.fbq?.("track", "Lead");
 
-    const option = OPTIONS.find((o) => o.id === selected);
+    const faturamentoLabel = FATURAMENTO_OPTIONS.find((f) => f.id === faturamento)?.label ?? faturamento;
+    const metodoLabel = OPTIONS.find((o) => o.id === metodo)?.label ?? metodo;
     fetch(SHEET_WEBHOOK_URL, {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "text/plain" },
       body: JSON.stringify({
-        selecionado: option?.label ?? selected,
+        nome,
+        telefone,
+        empresa,
+        faturamento: faturamentoLabel,
+        metodoVenda: metodoLabel,
         data: new Date().toISOString(),
         pagina: window.location.href,
       }),
@@ -367,50 +451,75 @@ export default function LP() {
                   </div>
                 </div>
 
-                {/* pergunta */}
+                {/* título */}
                 <div style={{ textAlign: "center", marginBottom: 28 }}>
                   <h3 style={{
                     fontFamily: "'Barlow Condensed', sans-serif",
                     fontWeight: 800,
-                    fontSize: "clamp(20px, 5vw, 26px)",
+                    fontSize: "clamp(22px, 5vw, 28px)",
                     textTransform: "uppercase",
                     lineHeight: 1.2, margin: "0 0 8px",
                   }}>
-                    ATUALMENTE VOCÊ JÁ<br />VENDE POR ONDE?
+                    <span style={{ color: "#FF4D00" }} className="glow">FAÇA</span> SUA INSCRIÇÃO
                   </h3>
                   <p style={{ color: "#555", fontSize: 13, lineHeight: 1.5, margin: 0 }}>
-                    Selecione a opção que melhor descreve seu negócio
+                    Preencha os dados abaixo para garantir sua vaga
                   </p>
                 </div>
 
-                {/* hand pointer */}
-                <div className="hand-hint" style={{ textAlign: "center", marginBottom: 12 }}>
-                  <span style={{ fontSize: 22 }}>👇</span>
-                </div>
+                {/* formulário */}
+                <Field label="Nome">
+                  <input
+                    className="form-input"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                    placeholder="Seu nome completo"
+                  />
+                </Field>
 
-                {/* opções */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
-                  {OPTIONS.map((o, i) => (
-                    <button
-                      key={o.id}
-                      onClick={() => setSelected(o.id)}
-                      className={`quiz-opt quiz-opt-anim${selected === o.id ? " sel" : ""}`}
-                      style={{ animationDelay: `${i * 0.08}s` }}
-                    >
-                      <span className="radio" />
-                      <span style={{ fontSize: 16, flexShrink: 0 }}>{o.icon}</span>
-                      <span style={{ fontWeight: selected === o.id ? 600 : 400 }}>{o.label}</span>
-                      {selected === o.id && <span className="check-mark">✓</span>}
-                    </button>
-                  ))}
-                </div>
+                <Field label="Telefone">
+                  <input
+                    className="form-input"
+                    type="tel"
+                    value={telefone}
+                    onChange={(e) => setTelefone(e.target.value)}
+                    placeholder="(71) 99999-9999"
+                  />
+                </Field>
+
+                <Field label="Nome da empresa">
+                  <input
+                    className="form-input"
+                    value={empresa}
+                    onChange={(e) => setEmpresa(e.target.value)}
+                    placeholder="Nome do seu restaurante/pizzaria"
+                  />
+                </Field>
+
+                <Field label="Faturamento mensal">
+                  <Dropdown
+                    value={faturamento}
+                    placeholder="Selecione uma faixa"
+                    options={FATURAMENTO_OPTIONS}
+                    onChange={setFaturamento}
+                  />
+                </Field>
+
+                <Field label="Método de venda">
+                  <Dropdown
+                    value={metodo}
+                    placeholder="Selecione como você vende"
+                    options={OPTIONS}
+                    onChange={setMetodo}
+                  />
+                </Field>
 
                 {/* enviar */}
                 <button
                   onClick={handleSend}
-                  className={`btn-cta btn-cta-quiz${selected ? " btn-cta-ready" : ""}`}
-                  disabled={!selected || submitted}
-                  style={{ width: "100%", height: 54, fontSize: 14 }}
+                  className={`btn-cta btn-cta-quiz${formValid ? " btn-cta-ready" : ""}`}
+                  disabled={!formValid || submitted}
+                  style={{ width: "100%", height: 54, fontSize: 14, marginTop: 10 }}
                 >
                   GARANTIR MINHA VAGA NO GRUPO →
                 </button>
