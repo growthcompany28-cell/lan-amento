@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 /* ─── CONFIG — edite aqui ─────────────────────────────── */
 const TARGET_DATE = new Date("2026-07-07T10:00:00-03:00");
 const WA_GROUP    = "https://chat.whatsapp.com/E665wQvrLi1Ket7TLe0W86?s=cl&p=i&mlu=3";
-const SHEET_WEBHOOK_URL = "COLE_AQUI_A_URL_DO_APPS_SCRIPT";
+const SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxsfpdEeSXyQ-xfByStJSVgbIOMuRbS1tdZ63aPMye1CocqY3DDgyjJIXWzyib0p9ZnKA/exec";
 const B = import.meta.env.BASE_URL;
 const HERO_DESKTOP = `${B}publichero-desktop.png`;
 const HERO_TABLET  = `${B}publichero-tablet.png`;
