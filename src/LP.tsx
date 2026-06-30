@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type ReactNode } from "react";
+import { useState, useEffect, useRef } from "react";
 
 /* ─── CONFIG — edite aqui ─────────────────────────────── */
 const TARGET_DATE = new Date("2026-07-07T10:00:00-03:00");
@@ -38,13 +38,6 @@ const OPTIONS = [
   { id: "ifood",         icon: "🔴", label: "iFood" },
   { id: "cardapio",      icon: "📋", label: "Uso cardápio digital" },
   { id: "todas",         icon: "✅", label: "Todas as opções acima" },
-];
-
-const FATURAMENTO_OPTIONS = [
-  { id: "10_30",    label: "10 a 30k mensais" },
-  { id: "30_50",    label: "30 a 50k mensais" },
-  { id: "50_100",   label: "50 a 100k mensais" },
-  { id: "100_mais", label: "+de 100k mensais" },
 ];
 
 /* ── helpers ── */
@@ -99,72 +92,6 @@ function Countdown() {
   );
 }
 
-function Field({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <div style={{ marginBottom: 14, textAlign: "left" }}>
-      <label style={{ display: "block", color: "#777", fontSize: 11, fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase", marginBottom: 6 }}>
-        {label}
-      </label>
-      {children}
-    </div>
-  );
-}
-
-function Dropdown({
-  value, placeholder, options, onChange,
-}: {
-  value: string | null;
-  placeholder: string;
-  options: { id: string; label: string; icon?: string }[];
-  onChange: (id: string) => void;
-}) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function onClickOutside(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    }
-    document.addEventListener("mousedown", onClickOutside);
-    return () => document.removeEventListener("mousedown", onClickOutside);
-  }, []);
-
-  const sel = options.find((o) => o.id === value);
-
-  return (
-    <div ref={ref} className="select-wrap">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className={`select-trigger${open ? " open" : ""}${!sel ? " placeholder" : ""}`}
-      >
-        <span style={{ display: "flex", alignItems: "center", gap: 8, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-          {sel?.icon && <span>{sel.icon}</span>}
-          {sel ? sel.label : placeholder}
-        </span>
-        <span className="select-chevron">▾</span>
-      </button>
-
-      {open && (
-        <div className="select-panel">
-          {options.map((o) => (
-            <button
-              type="button"
-              key={o.id}
-              className={`select-option${value === o.id ? " sel" : ""}`}
-              onClick={() => { onChange(o.id); setOpen(false); }}
-            >
-              {o.icon && <span>{o.icon}</span>}
-              <span>{o.label}</span>
-              {value === o.id && <span style={{ marginLeft: "auto", color: "#FF4D00" }}>✓</span>}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
 function HeroContent({ onCTA }: { onCTA: () => void }) {
   return (
     <div>
@@ -208,37 +135,26 @@ function HeroContent({ onCTA }: { onCTA: () => void }) {
    MAIN
 ══════════════════════════════════════ */
 export default function LP() {
-  const [nome, setNome]             = useState("");
-  const [telefone, setTelefone]     = useState("");
-  const [empresa, setEmpresa]       = useState("");
-  const [faturamento, setFaturamento] = useState<string | null>(null);
-  const [metodo, setMetodo]         = useState<string | null>(null);
-  const [submitted, setSubmitted]   = useState(false);
+  const [selected, setSelected]   = useState<string | null>(null);
+  const [submitted, setSubmitted] = useState(false);
   const quizRef = useRef<HTMLDivElement>(null);
   const sentRef = useRef(false);
 
   const scrollToQuiz = () => quizRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
 
-  const formValid = nome.trim() !== "" && telefone.trim() !== "" && empresa.trim() !== "" && !!faturamento && !!metodo;
-
   const handleSend = () => {
-    if (!formValid || sentRef.current) return;
+    if (!selected || sentRef.current) return;
     sentRef.current = true;
     setSubmitted(true);
     window.fbq?.("track", "Lead");
 
-    const faturamentoLabel = FATURAMENTO_OPTIONS.find((f) => f.id === faturamento)?.label ?? faturamento;
-    const metodoLabel = OPTIONS.find((o) => o.id === metodo)?.label ?? metodo;
+    const option = OPTIONS.find((o) => o.id === selected);
     fetch(SHEET_WEBHOOK_URL, {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "text/plain" },
       body: JSON.stringify({
-        nome,
-        telefone,
-        empresa,
-        faturamento: faturamentoLabel,
-        metodoVenda: metodoLabel,
+        selecionado: option?.label ?? selected,
         data: new Date().toISOString(),
         pagina: window.location.href,
       }),
@@ -451,76 +367,54 @@ export default function LP() {
                   </div>
                 </div>
 
-                {/* título */}
+                {/* pergunta */}
                 <div style={{ textAlign: "center", marginBottom: 28 }}>
                   <h3 style={{
                     fontFamily: "'Barlow Condensed', sans-serif",
                     fontWeight: 800,
-                    fontSize: "clamp(22px, 5vw, 28px)",
+                    fontSize: "clamp(20px, 5vw, 26px)",
                     textTransform: "uppercase",
                     lineHeight: 1.2, margin: "0 0 8px",
                   }}>
-                    <span style={{ color: "#FF4D00" }} className="glow">FAÇA</span> SUA INSCRIÇÃO
+                    ATUALMENTE VOCÊ JÁ<br />VENDE POR ONDE?
                   </h3>
                   <p style={{ color: "#555", fontSize: 13, lineHeight: 1.5, margin: 0 }}>
-                    Preencha os dados abaixo para garantir sua vaga
+                    Selecione a opção que melhor descreve seu negócio
                   </p>
                 </div>
 
-                {/* formulário */}
-                <Field label="Nome">
-                  <input
-                    className="form-input"
-                    value={nome}
-                    onChange={(e) => setNome(e.target.value)}
-                    placeholder="Seu nome completo"
-                  />
-                </Field>
+                {/* hand pointer */}
+                <div className="hand-hint" style={{ textAlign: "center", marginBottom: 12 }}>
+                  <span style={{ fontSize: 22 }}>👇</span>
+                </div>
 
-                <Field label="Telefone">
-                  <input
-                    className="form-input"
-                    type="tel"
-                    value={telefone}
-                    onChange={(e) => setTelefone(e.target.value)}
-                    placeholder="(71) 99999-9999"
-                  />
-                </Field>
-
-                <Field label="Nome da empresa">
-                  <input
-                    className="form-input"
-                    value={empresa}
-                    onChange={(e) => setEmpresa(e.target.value)}
-                    placeholder="Nome do seu restaurante/pizzaria"
-                  />
-                </Field>
-
-                <Field label="Faturamento mensal">
-                  <Dropdown
-                    value={faturamento}
-                    placeholder="Selecione uma faixa"
-                    options={FATURAMENTO_OPTIONS}
-                    onChange={setFaturamento}
-                  />
-                </Field>
-
-                <Field label="Método de venda">
-                  <Dropdown
-                    value={metodo}
-                    placeholder="Selecione como você vende"
-                    options={OPTIONS}
-                    onChange={setMetodo}
-                  />
-                </Field>
+                {/* opções */}
+                <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
+                  {OPTIONS.map((o, i) => (
+                    <button
+                      key={o.id}
+                      onClick={() => setSelected(o.id)}
+                      className={`quiz-opt quiz-opt-anim${selected === o.id ? " sel" : ""}`}
+                      style={{ animationDelay: `${i * 0.08}s` }}
+                    >
+                      <span className="radio" />
+                      <span style={{ fontSize: 16, flexShrink: 0 }}>{o.icon}</span>
+                      <span style={{ fontWeight: selected === o.id ? 600 : 400 }}>{o.label}</span>
+                      {selected === o.id && <span className="check-mark">✓</span>}
+                    </button>
+                  ))}
+                </div>
 
                 {/* enviar */}
                 <button
                   onClick={handleSend}
-                  className={`btn-cta btn-cta-quiz${formValid ? " btn-cta-ready" : ""}`}
-                  disabled={!formValid || submitted}
-                  style={{ width: "100%", height: 54, fontSize: 14, marginTop: 10 }}
+                  className={`btn-cta btn-cta-quiz${selected ? " btn-cta-ready" : ""}`}
+                  disabled={!selected || submitted}
+                  style={{ width: "100%", height: 54, fontSize: 14, display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}
                 >
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2.05 22l5.25-1.38a9.87 9.87 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm5.8 14.07c-.24.68-1.4 1.32-1.93 1.36-.5.05-1 .25-3.35-.7-2.83-1.13-4.64-3.98-4.78-4.16-.14-.19-1.15-1.53-1.15-2.92 0-1.38.73-2.06.98-2.34.25-.28.56-.35.74-.35h.53c.17 0 .4-.03.62.48.24.56.8 1.95.87 2.09.07.14.12.31.02.5-.1.19-.15.31-.3.48-.14.17-.3.38-.43.51-.14.14-.29.3-.13.58.17.28.74 1.23 1.6 2 1.1.98 2.03 1.29 2.31 1.43.28.14.44.12.6-.07.17-.19.71-.83.9-1.11.19-.28.38-.23.64-.14.27.1 1.69.8 1.98.94.29.14.48.21.55.33.07.12.07.69-.17 1.37Z" />
+                  </svg>
                   GARANTIR MINHA VAGA NO GRUPO →
                 </button>
 
